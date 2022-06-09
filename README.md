@@ -408,24 +408,85 @@ Click this to open a remote window. click on configure SSH Hosts.
 Click on the first one. 
 
 ```
-Host Jenkins-Ansible
-    HostName 3.84.233.5 (Public IP address of Jenkins-Ansible)
+Host jenkins-ansible
+    HostName 54.234.247.251
     User ubuntu
-    IdentityFile /Users/adekunlebakare/Documents/Solution architecture/AdekunleTr-key11.pem
-    ForwardAgent yes
-    ControlPath /tmp/ansible-ssh-%h-%p-%r
-    ControlMaster auto
-    ControlPersist 10m
+    IdentityFile /Users/adekunlebakare/Downloads/toheeb.pem
 ```
-save the file. Click disconnected from ssh. click connect current window to host, click Jenkis-Ansible
-Now, it is time to execute ansible-playbook command and verify if your playbook actually works:
+save the file. 
 
+![Screen Shot 2022-06-09 at 1 10 22 PM](https://user-images.githubusercontent.com/74343792/172905313-9fcb1f26-902f-44d9-9548-1d07f0ca3f0a.png)
+
+
+Click file, open folder, click ok.
+
+![Screen Shot 2022-06-09 at 1 14 14 PM](https://user-images.githubusercontent.com/74343792/172905844-f6f3e8a1-ff8e-44be-afe9-3c02b6ef7390.png)
+
+Run the ansible command on the iterm
 
 ```
 ansible-playbook -i /var/lib/jenkins/jobs/ansible/builds/<build-number>/archive/inventory/dev.yml /var/lib/jenkins/jobs/ansible/builds/<build-number>/archive/playbooks/common.yml
 ```
-
-Note: Previous command we ran without sudo, this is because we had added an ssh key to ssh-agent for our regular user. If you try to run this command with sudo you will
-have to explicitly pass the ssh key with --private-key <path-to-private-key> parameter.
+![Screen Shot 2022-06-09 at 2 10 12 PM](https://user-images.githubusercontent.com/74343792/172915767-bf739710-9f2e-4a07-bec5-d4a516ea2747.png)
 
 You can go to each of the servers and check if wireshark has been installed by running which wireshark or wireshark --version
+
+Your updated with Ansible architecture now looks like this:
+
+Lets check for Webserver-2
+
+```
+ssh ec2-user@private key
+```
+```
+which wireshark
+```
+```
+wireshark --version
+```
+![Screen Shot 2022-06-09 at 2 40 33 PM](https://user-images.githubusercontent.com/74343792/172921030-d69ed646-eb6d-4c8f-8b21-7b40c28911b6.png)
+
+![Screen Shot 2022-06-09 at 2 44 05 PM](https://user-images.githubusercontent.com/74343792/172921350-c25b0ec9-64ef-4e22-8e38-fee31ed31300.png)
+
+Optional step – Repeat once again
+Update your ansible playbook with some new Ansible tasks and go through the full checkout -> change codes -> commit -> PR -> merge -> build -> ansible-playbook cycle again to see how easily you can manage a servers fleet of any size with just one command!
+
+```
+git branch
+```
+![Screen Shot 2022-06-08 at 9 29 20 PM](https://user-images.githubusercontent.com/74343792/172744955-9ad6e547-ad79-433b-8d2d-35b00ac54932.png)
+
+Go back to yout branch
+
+```
+git checkout prj-11
+```
+On the playbooks, common. yml add the following
+
+```
+- name: create directory, file and set timezone on all servers
+  hosts: webservers, nfs, db
+  become: yes
+  tasks:
+    - name: create a directory
+      file:
+        path: /home/sample
+        state: directory
+
+    - name: create a file
+      file:
+        path: /home/sample/ansible.txt
+        state: touch
+
+    - name: set timezone
+      timezone:
+        name: USA/Columbus
+  ```
+Click save. commit the changes as shown in the picture below.
+
+![Screen Shot 2022-06-09 at 3 07 37 PM](https://user-images.githubusercontent.com/74343792/172925240-2e725284-9ea0-425b-b046-211b8eef0796.png)
+
+Click the tick mark to commit the chnage. Click the ... and click push. Go back to your git hub and follow the prompts of "compare and pull"
+
+Congratulations
+You have just automated your routine tasks by implementing your first Ansible project! There is more exciting projects ahead, so lets keep it moving!
