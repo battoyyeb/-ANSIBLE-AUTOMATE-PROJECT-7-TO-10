@@ -226,15 +226,7 @@ An Ansible inventory file defines the hosts and groups of hosts upon which comma
 
 Save below inventory structure in the inventory/dev file to start configuring your development servers. Ensure to replace the IP addresses according to your own setup.
 
-Note: Ansible uses TCP port 22 by default, which means it needs to ssh into target servers from Jenkins-Ansible host – for this you need to copy your private (.pem) key to your server. Do not forget to change permissions to your private key chmod 400 key.pem, otherwise EC2 will not accept the key. Now you need to import your key into ssh-agent:
 
-
-```
-eval `ssh-agent -s`
-ssh-add <path-to-private-key>
-ssh -A ubuntu@public-ip-address of your instance
-```
-![Screen Shot 2022-06-08 at 9 59 35 PM](https://user-images.githubusercontent.com/74343792/172748115-21e15f5e-da6b-4365-ad12-7d030ffa2bcf.png)
 
 Also notice, that your Load Balancer user is ubuntu and user for RHEL-based servers is ec2-user.
 
@@ -423,6 +415,15 @@ Click file, open folder, click ok.
 
 ![Screen Shot 2022-06-09 at 1 14 14 PM](https://user-images.githubusercontent.com/74343792/172905844-f6f3e8a1-ff8e-44be-afe9-3c02b6ef7390.png)
 
+Ansible uses TCP port 22 by default, which means it needs to ssh into target servers from Jenkins-Ansible host – for this you need to copy your private (.pem) key to your server. Do not forget to change permissions to your private key chmod 400 key.pem, otherwise EC2 will not accept the key. Now you need to import your key into ssh-agent:
+
+```
+eval `ssh-agent -s`
+ssh-add <path-to-private-key>
+ssh -A ubuntu@public-ip-address of your instance
+```
+
+![Screen Shot 2022-06-08 at 9 59 35 PM](https://user-images.githubusercontent.com/74343792/172748115-21e15f5e-da6b-4365-ad12-7d030ffa2bcf.png)
 Run the ansible command on the iterm
 
 ```
