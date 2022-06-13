@@ -232,15 +232,6 @@ Also notice, that your Load Balancer user is ubuntu and user for RHEL-based serv
 
 ![Screen Shot 2022-06-08 at 10 09 48 PM](https://user-images.githubusercontent.com/74343792/172749239-78b0f355-a4bc-40e2-9d5c-705d0e1c9a55.png)
 
-Check if your Ansible-Jenkins EC2 instance can access the EC2 instances you created
-
-```
-ssh ubuntu@private-key
-ssh ec2-user@private-key
-```
-![Screen Shot 2022-06-08 at 10 15 47 PM](https://user-images.githubusercontent.com/74343792/172749897-ac3f573b-b9fc-4dbc-9720-13e9d21db4f5.png)
-
-![Screen Shot 2022-06-08 at 10 18 11 PM](https://user-images.githubusercontent.com/74343792/172750176-759e495c-9347-45a3-b369-c647ce48424f.png)
 
 Update your inventory/dev.yml file with this snippet of code:
 
@@ -424,6 +415,19 @@ ssh -A ubuntu@public-ip-address of your instance
 ```
 
 ![Screen Shot 2022-06-08 at 9 59 35 PM](https://user-images.githubusercontent.com/74343792/172748115-21e15f5e-da6b-4365-ad12-7d030ffa2bcf.png)
+
+
+Check if your Ansible-Jenkins EC2 instance can access the EC2 instances you created
+
+```
+ssh ubuntu@private-key
+ssh ec2-user@private-key
+```
+
+![Screen Shot 2022-06-08 at 10 15 47 PM](https://user-images.githubusercontent.com/74343792/172749897-ac3f573b-b9fc-4dbc-9720-13e9d21db4f5.png)
+
+![Screen Shot 2022-06-08 at 10 18 11 PM](https://user-images.githubusercontent.com/74343792/172750176-759e495c-9347-45a3-b369-c647ce48424f.png)
+
 Run the ansible command on the iterm
 
 ```
