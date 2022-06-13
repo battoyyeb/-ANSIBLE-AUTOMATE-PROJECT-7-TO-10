@@ -29,6 +29,16 @@ sudo apt install software-properties-common
 sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 
+or 
+
+sudo apt update
+sudo apt install ansible
+sudo mkdir /etc/ansible
+sudo touch /etc/ansible/ansible.cfg
+
+
+https://github.com/ansible/ansible/blob/stable-2.9/examples/ansible.cfg
+
 ```
 
 Check your Ansible version by running
