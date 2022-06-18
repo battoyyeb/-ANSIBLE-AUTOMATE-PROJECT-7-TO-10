@@ -9,6 +9,10 @@ This Project will make you appreciate DevOps tools even more by making most of t
 A Jump Server (sometimes also referred as Bastion Host) is an intermediary server through which access to internal network can be provided. 
 If you think about the current architecture you are working on, ideally, the webservers would be inside a secured network which cannot be reached directly from the Internet. That means, even DevOps engineers cannot SSH into the Web servers directly and can only access it through a Jump Server – it provide better security and reduces attack surface.
 
+On the diagram below the Virtual Private Network (VPC) is divided into two subnets – Public subnet has public IP addresses and Private subnet is only reachable by private IP addresses.
+
+![Screen Shot 2022-06-17 at 8 17 56 PM](https://user-images.githubusercontent.com/74343792/174414665-e8513ba2-d6c3-40b8-86d9-ee709c081154.png)
+
 **Task**
 
 Install and configure Ansible client to act as a Jump Server/Bastion Host
@@ -54,6 +58,7 @@ ansible --version
 -- Create a new Freestyle project ansible in Jenkins and point it to your ‘ansible-config-mgt’ repository.
 -- Configure Webhook in GitHub and set webhook to trigger ansible build.
 -- Configure a Post-build job to save all (**) files, like you did it in Project 9.
+
 Step 1 – Install Jenkins server
 
 
@@ -152,8 +157,7 @@ Click save. Test your jenkins by clicking "Build now"
 
 ![Screen Shot 2022-06-08 at 8 28 15 PM](https://user-images.githubusercontent.com/74343792/172739425-471da9ac-b822-4637-8f90-6b875065c9c5.png)
 
-Test your setup by making some change in README.MD file in master branch and make sure that builds starts automatically and Jenkins saves the files (build artifacts) 
-in following folder
+Test your setup by making some change in README.MD file in master branch and make sure that builds starts automatically and Jenkins saves the files (build artifacts) in following folder
 
 ```
 sudo ls /var/lib/jenkins/jobs/Ansible/builds/<build_number>/archive/
@@ -166,6 +170,10 @@ Note: Trigger Jenkins project execution only for /main (master) branch.
 ![Screen Shot 2022-06-08 at 8 40 18 PM](https://user-images.githubusercontent.com/74343792/172740396-92284cc2-1279-4579-827c-f39bc9da1709.png)
 
 ![Screen Shot 2022-06-08 at 8 37 08 PM](https://user-images.githubusercontent.com/74343792/172740143-a7e6c390-a0b6-4c1a-bf7b-a1f3ddf27f0e.png)
+
+Now your setup will look like this:
+
+![Screen Shot 2022-06-17 at 8 22 11 PM](https://user-images.githubusercontent.com/74343792/174414787-96a20850-69a4-4f35-9584-cd166f171913.png)
 
 ## Step 2 – Prepare your development environment using Visual Studio Code
 First part of ‘DevOps’ is ‘Dev’, which means you will require to write some codes and you shall have proper tools that will make your coding and debugging comfortable – youneed an Integrated development environment (IDE) or Source-code Editor. There is a plethora of different IDEs and Source-code Editors for different languages with their own advantages and drawbacks, you can choose whichever you are comfortable with, but we recommend one free and universal editor that will fully satisfy your needs – Visual Studio Code (VSC), you can get it here.
@@ -503,6 +511,10 @@ Click save. commit the changes as shown in the picture below.
 ![Screen Shot 2022-06-09 at 3 07 37 PM](https://user-images.githubusercontent.com/74343792/172925240-2e725284-9ea0-425b-b046-211b8eef0796.png)
 
 Click the tick mark to commit the chnage. Click the ... and click push. Go back to your git hub and follow the prompts of "compare and pull"
+
+Your updated with Ansible architecture now looks like this:
+
+![Screen Shot 2022-06-17 at 8 23 50 PM](https://user-images.githubusercontent.com/74343792/174414833-41cc871d-357b-48b6-b172-6c407de21ac8.png)
 
 Congratulations
 You have just automated your routine tasks by implementing your first Ansible project! There is more exciting projects ahead, so lets keep it moving!
